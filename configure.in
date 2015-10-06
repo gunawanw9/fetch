@@ -1,0 +1,153 @@
+# Process this file with autoconf to produce a configure script.
+# $Id$
+AC_INIT(README)
+
+# Setup for automake
+PROJ_NAME=fetch
+PROJ_VERSION=1.0
+AM_INIT_AUTOMAKE($PROJ_NAME, $PROJ_VERSION)
+
+AC_SUBST(PROJ_NAME)
+AC_SUBST(PROJ_VERSION)
+
+# Detect the canonical host and target build environment
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
+# Check for tools
+AC_PROG_CC
+AC_PROG_AWK		# Used to parse out the path of headers/libs if it comes to that
+
+# Check for compiler environment
+AC_C_CONST
+
+
+# First try to find HTTP Fetcher installed in a standard location
+AC_CHECK_HEADER(http_fetcher.h, found_header=yes)
+AC_CHECK_LIB(http_fetcher, http_fetch, found_library=yes)
+
+# See if the user specified where the HTTP Fetcher headers and libraries are
+AC_ARG_WITH(includes,
+	[  --with-includes=DIR     HTTP Fetcher headers located in DIR],
+	header_path_specified=yes, header_path_specified=no)
+if test x$header_path_specified != xno;
+	then
+		# Check to see if it's REALLY there!
+		AC_PATH_PROG(verified_header_path, http_fetcher.h, no, $withval)
+		if test x$verified_header_path != xno;
+			then	
+			CFLAGS="$CFLAGS -I$withval"
+		else
+			AC_MSG_ERROR([
+
+*** Couldn't find header (http_fetcher.h) in the specified location
+*** ($withval).
+***
+*** Run 'configure --with-includes=DIR', where DIR is the path to the header
+*** file, then try 'make' again.
+])
+		fi
+fi
+
+AC_ARG_WITH(libraries,
+	[  --with-libraries=DIR    HTTP Fetcher libraries located in DIR],
+	lib_path_specified=yes, lib_path_specified=no)
+if test x$lib_path_specified != xno;
+	then
+		# Check to see if it's REALLY there!
+		AC_PATH_PROG(verified_library_path, libhttp_fetcher.a, no, $withval)
+		if test x$verified_library_path != xno;
+			then
+			CFLAGS="$CFLAGS -L$withval"
+			specified_library_path=$withval		# Save it for -rpath
+		else
+			AC_MSG_ERROR([
+
+*** Couldn't find library (libhttp_fetcher.a) in the specified location
+*** ($withval).
+***
+*** Run 'configure --with-libraries=DIR', where DIR is the path to the header
+*** file, then try 'make' again.
+])
+		fi
+fi
+
+# If header not found in either case, check special cases, then alert the user
+if test x$found_header != xyes;
+	then
+		# Didn't find header in a standard place...
+		if test x$header_path_specified != xyes;
+			then
+			# Didn't specify it, either...
+			# Before erroring out, look in their home dir
+			AC_PATH_PROG(found_header_path, http_fetcher.h, no, $HOME/include)
+			if test x$found_header_path != xno;
+				then
+				# Cut the actual filename out of the path
+				number_of_fields=`echo $found_header_path | \
+				awk -F/ '{print NF-1}'`
+				found_header_path=`echo $found_header_path | \
+				cut -d/ -f1-$number_of_fields`
+				CFLAGS="$CFLAGS -I$found_header_path"
+			else
+			AC_MSG_ERROR([
+
+*** Couldn't find header (http_fetcher.h) in a standard location.
+*** HTTP Fetcher needs to be installed to continue.  If it IS installed,
+*** perhaps it was installed in a non-standard location.
+***
+*** Run 'configure --with-includes=DIR', where DIR is the path to the header
+*** file, then try 'make' again.
+***
+*** HTTP Fetcher can be downloaded from http://cs.nmu.edu/~lhanson/http_fetcher/
+])
+			fi
+		fi
+fi
+
+# Set up a default location for the linker unless otherwise specified or found
+ld_rpath="-Wl,-rpath /usr/local/lib"
+
+# If library not found in either case, alert the user
+if test x$found_library != xyes;
+	then
+		# Didn't find library in standard place...
+		if test x$lib_path_specified != xyes;
+			then
+			# Didn't specify it, either...
+			# Before erroring out, check their home dir
+			AC_PATH_PROG(found_library_path, libhttp_fetcher.a, no, $HOME/lib)
+			if test x$found_library_path != xno;
+				then
+				# Cut the actual filename out of the path
+				number_of_fields=`echo $found_library_path | \
+				awk -F/ '{print NF-1}'`
+				found_library_path=`echo $found_library_path | \
+				cut -d/ -f1-$number_of_fields`
+				ld_rpath="-Wl,-rpath $found_library_path"
+				CFLAGS="$CFLAGS -L$found_library_path"
+			else
+			AC_MSG_ERROR([
+
+*** Couldn't find library (http_fetcher) in a standard location.
+*** HTTP Fetcher needs to be installed to continue.  If it IS installed,
+*** perhaps it was installed in a non-standard location.
+***
+*** Run 'configure --with-libraries=DIR', where DIR is the path to the library,
+*** then try 'make' again.
+***
+*** HTTP Fetcher can be downloaded from http://cs.nmu.edu/~lhanson/http_fetcher/
+])
+			fi
+		else
+			# Set the -rpath as specified
+			ld_rpath="-Wl,-rpath $specified_library_path"
+		fi
+fi
+
+# Substitute the proper -rpath argument to link with wherever the library is
+#	installed.  Ah, this magic is wonderful once you finally get it working!!
+AC_SUBST(ld_rpath)
+
+# Finally create all the generated files
+AC_OUTPUT(Makefile docs/Makefile src/Makefile)

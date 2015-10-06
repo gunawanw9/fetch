@@ -1,0 +1,65 @@
+fetch
+Lyle Hanson (lhanson@cs.nmu.edu) (C) 2001
+http://cs.nmu.edu/~lhanson/fetch/
+================================================================================
+
+
+ABOUT
+=====
+fetch is a simple, flexible download tool built on the HTTP Fetcher library.
+There are other utilities out there that handle HTTP downloads (wget) but a lot
+of them are intended more for mirroring websites and the like;  fetch allows
+you to download a file at the command line by basically saying 'fetch URL'.
+
+fetch also allows you to customize your HTTP request by changing the User Agent
+and Referer shown to the webserver.  This is useful for a lot of different
+reasons that I will leave up to your imagination.  You don't even have to
+save the file you request; you can use fetch to simply generate a hit.
+
+If you DO want to use fetch for larger transfers such as site mirrors, etc.,
+you can currently do this by writing a shell script to run fetch as desired.
+Soon I expect to add support to download images associated with a page, to
+better simulate a web browser viewing the page (again, for reasons you may
+or may not find useful/interesting).
+
+
+DEPENDENCIES
+============
+fetch depends on the HTTP Fetcher library, found at
+http://cs.nmu.edu/~lhanson/http_fetcher/.  Should run on most unix-like systems.
+
+
+INSTALLATION
+============
+Read the INSTALL file for info on building and installing fetch.
+
+
+USAGE
+=====
+Check out the manpage for fetch ('man fetch', if you have already have fetch
+installed) or run 'fetch --help'.  The webpage is also bound to have recent
+information.
+
+
+LICENSE
+=======
+fetch is licensed under the GNU Lesser General Public License (LGPL)
+version 2 or newer.  See the LICENSE file for full info.  Feel free to contact
+me if you have any questions/concerns over licensing issues.
+
+
+FEEDBACK
+========
+Drop me a line if you find this program useful or if you have any questions,
+comments, requests, or bug reports.
+
+
+TODO:
+=====
+Implement an option that will download (or simply hit) images on an HTML page
+in order to better simulate a web browser viewing the page.
+
+
+BUGS
+====
+None that I know of.  Let me know if you find any.

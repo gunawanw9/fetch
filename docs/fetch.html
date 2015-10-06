@@ -1,0 +1,110 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux 2.2.17 i686) [Netscape]">
+   <title>fetch manpage</title>
+</head>
+<body text="#000000" bgcolor="#FFF8DC" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<center>
+<h1>
+<font size=+4>fetch</font></h1></center>
+
+<h1>
+
+<hr><br>
+NAME</h1>
+<b>fetch</b> - Downloads files via HTTP
+<br>&nbsp;
+<h2>
+SYNOPSIS</h2>
+<b>fetch</b> [<i>options</i>] <i>URL</i>
+<br>&nbsp;
+<h2>
+DESCRIPTION</h2>
+<b>fetch</b> is a simple, flexible command line tool for downloading files
+via HTTP.
+<p>It allows you to customize the HTTP GET request that the web server
+sees, by giving you control over the User Agent and Referrer values.
+<br>&nbsp;
+<h2>
+OPTIONS</h2>
+
+<dl COMPACT>
+<dt>
+<b>-A</b></dt>
+
+<dd>
+&nbsp;do not present default User Agent to server</dd>
+
+<dt>
+<b>-a</b>, <b>--agent</b></dt>
+
+<dd>
+&nbsp;User Agent to present to the server</dd>
+
+<dt>
+<b>-f</b>, <b>--filename</b></dt>
+
+<dd>
+&nbsp;local filename to save the url to</dd>
+
+<dt>
+<b>-h</b>, <b>--help</b></dt>
+
+<dd>
+&nbsp;display this help message</dd>
+
+<dt>
+<b>-n</b>, <b>--nosave</b></dt>
+
+<dd>
+&nbsp;hit the url, but don't save it to disk</dd>
+
+<dt>
+<b>-r</b>, <b>--referer</b></dt>
+
+<dd>
+&nbsp;referer URL presented to the server (no referer presented by default)</dd>
+
+<dt>
+<b>-t</b>, <b>--timeout</b></dt>
+
+<dd>
+&nbsp;number of seconds without data before giving up (less than 0 means
+don't time out)</dd>
+
+<dt>
+<b>-v</b>, <b>--version</b></dt>
+
+<dd>
+&nbsp;output version information and exit</dd>
+
+<dd>
+</dd>
+</dl>
+
+<h2>
+AUTHOR</h2>
+Lyle Hanson (<a href="mailto:lhanson@cs.nmu.edu">lhanson@cs.nmu.edu</a>)
+<br>&nbsp;
+<h2>
+SEE ALSO</h2>
+The <a href="http://cs.nmu.edu/~lhanson/http_fetcher/">HTTP Fetcher</a>
+library
+<br>or type 'man http_fetch'
+<p>
+<hr>
+<table COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><a href="http://cs.nmu.edu/~lhanson/fetch/">fetch homepage</a></td>
+
+<td VALIGN=TOP NOSAVE>
+<div align=right>Updated July 1, 2001</div>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

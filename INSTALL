@@ -1,0 +1,26 @@
+INSTALLATION
+============
+
+Before installing fetch, the HTTP Fetcher library must be installed.
+It can be downloaded from http://cs.nmu.edu/~lhanson/http_fetcher/
+-------------------
+
+From the main fetch directory, type:
+	
+	1) ./configure
+	2) make
+		then, as root...
+	3) make install
+
+That's it.  The program should then be located in /usr/local/bin/ (unless you 
+specified a different prefix).
+
+If you don't have root on the machine, you can install the package in your
+home directory.  For step 1, do "./configure --prefix=YOUR_PATH" where
+YOUR_PATH is the directory under which you'd like to install the package.
+
+To uninstall (from the main fetch distribution directory), type
+	make uninstall
+
+
+Lyle Hanson (lhanson@cs.nmu.edu)

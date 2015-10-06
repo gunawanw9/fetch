@@ -1,0 +1,51 @@
+.TH "fetch" "1" "July 1, 2001" "Lyle Hanson" "HTTP download utility"
+.SH "NAME"
+.LP 
+\fBfetch\fR \- Downloads files via HTTP
+.SH "SYNOPSIS"
+.LP 
+\fBfetch\fR [\fIoptions\fP] \fIURL\fR
+.SH "DESCRIPTION"
+.LP 
+\fIfetch\fR is a simple, flexible command line tool for downloading files via HTTP.
+
+It allows you to customize the HTTP GET request that the web server sees, by giving you control over the User Agent and Referrer values.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-A\fR
+do not present default User Agent to server
+.TP 
+\fB\-a\fR, \fB\-\-agent\fR
+User Agent to present to the server
+.TP 
+\fB\-f\fR, \fB\-\-filename\fR
+local filename to save the url to
+.TP 
+\fB\-h\fR, \fB\-\-help\fR
+display this help message
+.TP 
+\fB\-n\fR, \fB\-\-nosave\fR
+hit the url, but don't save it to disk
+.TP 
+\fB\-r\fR, \fB\-\-referer\fR
+referer URL presented to the server
+(no referer presented by default)
+.TP 
+\fB\-t\fR, \fB\-\-timeout\fR
+number of seconds without data before giving up
+(less than 0 means don't time out)
+.TP 
+\fB\-v\fR, \fB\-\-version\fR
+output version information and exit
+
+.SH "AUTHOR"
+.LP 
+Lyle Hanson (lhanson@cs.nmu.edu)
+.SH "SEE ALSO"
+.LP 
+The HTTP Fetcher library
+.br 
+(http://cs.nmu.edu/~lhanson/http_fetcher/)
+.br 
+or type 'man http_fetch'
